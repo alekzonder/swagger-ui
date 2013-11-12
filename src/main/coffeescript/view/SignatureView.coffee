@@ -11,7 +11,7 @@ class SignatureView extends Backbone.View
     template = @template()
     $(@el).html(template(@model))
 
-    @switchToDescription()
+#    @switchToSnippet()
 
     @isParam = @model.isParam
 
@@ -38,6 +38,7 @@ class SignatureView extends Backbone.View
     $(".snippet", $(@el)).show()
     $('.snippet-link', $(@el)).addClass('selected')
     $('.description-link', $(@el)).removeClass('selected')
+    window.refreshCodeMirror($(@el).find('.json'))
 
   # handler for snippet to text area
   snippetToTextArea: (e) ->

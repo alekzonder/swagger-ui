@@ -107,6 +107,17 @@ var Docs = {
 //                log("li_dom_id " + li_dom_id);
 //                log("li_content_dom_id " + li_content_dom_id);
 
+				$('#'+li_content_dom_id).each(function(i, el) {
+
+					if ($(el).data('CodeMirrorInstance')) {
+						var editor = $(el).data('CodeMirrorInstance');
+						editor.refresh();
+					} else {
+						var jsonElement = $(el).find('.json').get(0);
+						window.createCodeMirror(jsonElement);
+					}
+				});
+
 				Docs.expandOperation($('#'+li_content_dom_id));
 				$('#'+li_dom_id).slideto({highlight: false});
 				break;
@@ -1146,15 +1157,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n<ul class=\"signature-nav\">\n    <li><a class=\"description-link\" href=\"#\">Model</a></li>\n    <li><a class=\"snippet-link\" href=\"#\">Model Schema</a></li>\n</ul>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"description\">\n        ";
-  if (stack1 = helpers.signature) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = (depth0 && depth0.signature); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </div>\n\n    <div class=\"snippet\">\n        <pre><code>";
+  buffer += "<div>\n<ul class=\"signature-nav\">\n    <li><a class=\"description-link\" href=\"#\">hide</a></li>\n    <li><a class=\"snippet-link\" href=\"#\">show</a></li>\n</ul>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"snippet\" style=\"display: none\">\n        <div class=\"json\">";
   if (stack1 = helpers.sampleJSON) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.sampleJSON); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</code></pre>\n        <small class=\"notice\"></small>\n    </div>\n</div>\n\n";
+    + "</div>\n        <small class=\"notice\"></small>\n    </div>\n</div>\n\n";
   return buffer;
   });
 })();
@@ -1765,9 +1772,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       var elem;
       elem = $('#' + Docs.escapeResourceName(this.model.resourceName) + "_" + this.model.nickname + "_" + this.model.method + "_" + this.model.number + "_content");
       if (elem.is(':visible')) {
-        return Docs.collapseOperation(elem);
+        Docs.collapseOperation(elem);
       } else {
-        return Docs.expandOperation(elem);
+        Docs.expandOperation(elem);
+      }
+      return $(elem).find('.json').each(this.refreshCodeMirror);
+    };
+
+    OperationView.prototype.refreshCodeMirror = function(i, el) {
+      var editor;
+      editor = $(el).data('CodeMirrorInstance');
+      if (editor) {
+        return editor.refresh();
       }
     };
 
@@ -1901,7 +1917,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       var template;
       template = this.template();
       $(this.el).html(template(this.model));
-      this.switchToDescription();
       this.isParam = this.model.isParam;
       if (this.isParam) {
         $('.notice', $(this.el)).text('Click to set as parameter value');
@@ -1930,7 +1945,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       $(".description", $(this.el)).hide();
       $(".snippet", $(this.el)).show();
       $('.snippet-link', $(this.el)).addClass('selected');
-      return $('.description-link', $(this.el)).removeClass('selected');
+      $('.description-link', $(this.el)).removeClass('selected');
+      return window.refreshCodeMirror($(this.el).find('.json'));
     };
 
     SignatureView.prototype.snippetToTextArea = function(e) {

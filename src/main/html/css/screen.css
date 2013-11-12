@@ -256,6 +256,13 @@ table {
   line-height: 1.6em;
   background: none;
 }
+.swagger-ui-wrap .content {
+  /*pre {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px;
+        }*/
+}
 .swagger-ui-wrap .content > .content-type > div > label {
   clear: both;
   display: block;
@@ -263,11 +270,6 @@ table {
   font-size: 1.1em;
   margin: 0;
   padding: 15px 0 5px;
-}
-.swagger-ui-wrap .content pre {
-  font-size: 12px;
-  margin-top: 5px;
-  padding: 5px;
 }
 .swagger-ui-wrap .icon-btn {
   cursor: pointer;
@@ -330,6 +332,16 @@ table {
   font-family: "Droid Sans", sans-serif;
   font-size: 1em;
   line-height: 1.5em;
+  /* pre:hover {
+            background-color: #ffffdd;
+        }
+        pre {
+            font-size: .85em;
+            line-height: 1.2em;
+            overflow: auto;
+            max-height: 200px;
+            cursor: pointer;
+        }*/
 }
 .swagger-ui-wrap .model-signature .signature-nav a {
   text-decoration: none;
@@ -345,16 +357,6 @@ table {
 }
 .swagger-ui-wrap .model-signature .propType {
   color: #5555aa;
-}
-.swagger-ui-wrap .model-signature pre:hover {
-  background-color: #ffffdd;
-}
-.swagger-ui-wrap .model-signature pre {
-  font-size: .85em;
-  line-height: 1.2em;
-  overflow: auto;
-  max-height: 200px;
-  cursor: pointer;
 }
 .swagger-ui-wrap .model-signature ul.signature-nav {
   display: block;

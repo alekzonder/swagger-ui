@@ -107,6 +107,17 @@ var Docs = {
 //                log("li_dom_id " + li_dom_id);
 //                log("li_content_dom_id " + li_content_dom_id);
 
+				$('#'+li_content_dom_id).each(function(i, el) {
+
+					if ($(el).data('CodeMirrorInstance')) {
+						var editor = $(el).data('CodeMirrorInstance');
+						editor.refresh();
+					} else {
+						var jsonElement = $(el).find('.json').get(0);
+						window.createCodeMirror(jsonElement);
+					}
+				});
+
 				Docs.expandOperation($('#'+li_content_dom_id));
 				$('#'+li_dom_id).slideto({highlight: false});
 				break;

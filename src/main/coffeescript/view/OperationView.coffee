@@ -229,8 +229,15 @@ class OperationView extends Backbone.View
     $(".response", $(@el)).slideDown()
     $(".response_hider", $(@el)).show()
     $(".response_throbber", $(@el)).hide()
+
     hljs.highlightBlock($('.response_body', $(@el))[0])
 
   toggleOperationContent: ->
     elem = $('#' + Docs.escapeResourceName(@model.resourceName) + "_" + @model.nickname + "_" + @model.method + "_" + @model.number + "_content")
     if elem.is(':visible') then Docs.collapseOperation(elem) else Docs.expandOperation(elem)
+    $(elem).find('.json').each(@refreshCodeMirror)
+
+  refreshCodeMirror: (i, el) ->
+    editor = $(el).data('CodeMirrorInstance')
+    if editor
+      editor.refresh()
