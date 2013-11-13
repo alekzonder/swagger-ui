@@ -17,6 +17,38 @@ sourceFiles  = [
   'view/ParameterContentTypeView'
 ]
 
+jsAllFiles = [
+  'lib/shred.bundle.js',
+  'lib/jquery-1.8.0.min.js',
+  'lib/jquery.slideto.min.js',
+  'lib/jquery.wiggle.min.js',
+  'lib/jquery.ba-bbq.min.js',
+  'lib/handlebars-1.0.0.js',
+  'lib/underscore-min.js',
+  'lib/backbone-min.js',
+  'lib/swagger.js',
+  'swagger-ui.js',
+  'lib/codemirror/3.18/lib/codemirror.js',
+  'lib/codemirror/3.18/mode/xml/xml.js',
+  'lib/codemirror/3.18/mode/javascript/javascript.js',
+  'lib/codemirror/3.18/keymap/extra.js',
+  'lib/codemirror/3.18/addon/selection/active-line.js',
+  'lib/codemirror/3.18/addon/edit/matchbrackets.js',
+  'lib/codemirror/3.18/addon/fold/foldcode.js',
+  'lib/codemirror/3.18/addon/fold/foldgutter.js',
+  'lib/codemirror/3.18/addon/fold/brace-fold.js',
+  'lib/codemirror/3.18/addon/fold/xml-fold.js',
+  'lib/codemirror/3.18/addon/fold/comment-fold.js',
+  'lib/codemirror/3.18/addon/display/fullscreen.js'
+]
+
+
+cssAllFiles = [
+  'css/highlight.default.css',
+  'css/screen.css',
+  'lib/codemirror/3.18/lib/codemirror.css',
+  'lib/codemirror/3.18/addon/display/fullscreen.css'
+]
 
 task 'clean', 'Removes distribution', ->
   console.log 'Clearing dist...'
@@ -54,6 +86,7 @@ task 'dist', 'Build a distribution', ->
               build()
 
 
+
   build = ->
     console.log '   : Collecting Coffeescript source...'
 
@@ -65,7 +98,7 @@ task 'dist', 'Build a distribution', ->
         throw err if err
         fs.unlink 'dist/_swagger-ui.coffee'
         console.log '   : Combining with javascript...'
-        exec 'cat src/main/javascript/doc.js dist/_swagger-ui-templates.js dist/_swagger-ui.js > dist/swagger-ui.js', (err, stdout, stderr) ->
+        exec 'cat src/main/javascript/doc.js src/main/javascript/codeMirrorFunctions.js dist/_swagger-ui-templates.js dist/_swagger-ui.js > dist/swagger-ui.js', (err, stdout, stderr) ->
           throw err if err
           fs.unlink 'dist/_swagger-ui.js'
           fs.unlink 'dist/_swagger-ui-templates.js'
@@ -73,6 +106,19 @@ task 'dist', 'Build a distribution', ->
           exec 'java -jar "./bin/yuicompressor-2.4.7.jar" --type js -o ' + 'dist/swagger-ui.min.js ' + 'dist/swagger-ui.js', (err, stdout, stderr) ->
             throw err if err
             lessc()
+            buildAll()
+
+  buildAll = ->
+    console.log '   : Combining all javascript to swagger-ui.all.js ...'
+    exec 'cat dist/'+ jsAllFiles.join(' dist/') + ' > dist/swagger-ui.all.js', (err, stdout, stderr) ->
+      throw err if err
+      console.log '   : Combining all css to swagger-ui.all.css ...'
+      exec 'cat dist/'+ cssAllFiles.join(' dist/') + ' > dist/swagger-ui.all.css', (err, stdout, stderr) ->
+        throw err if err
+#      console.log '   : Minifying swagger-ui.all.js ...'
+#      exec 'java -jar "./bin/yuicompressor-2.4.7.jar" --type js -o ' + 'dist/swagger-ui.all.min.js ' + 'dist/swagger-ui.all.js', (err, stdout, stderr) ->
+#        throw err if err
+
 
   lessc = ->
     # Someone who knows CoffeeScript should make this more Coffee-licious
