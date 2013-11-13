@@ -11,6 +11,7 @@ class SignatureView extends Backbone.View
     template = @template()
     $(@el).html(template(@model))
 
+    $('a.hide-link').hide()
     $('a.show-link').show()
     @hideFormat()
 

@@ -2017,6 +2017,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       var template;
       template = this.template();
       $(this.el).html(template(this.model));
+      $('a.hide-link').hide();
       $('a.show-link').show();
       this.hideFormat();
       this.isParam = this.model.isParam;
