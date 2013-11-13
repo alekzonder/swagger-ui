@@ -423,7 +423,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <h4>Implementation Notes</h4>\n        <p>";
+  buffer += "\n        <h4>Подробное описание</h4>\n        <p>";
   if (stack1 = helpers.notes) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.notes); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
@@ -434,19 +434,19 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   
-  return "\n          <h4>Response Class</h4>\n          <p><span class=\"model-signature\" /></p>\n          <br/>\n          <div class=\"response-content-type\" />\n        ";
+  return "\n          <h4>Формат ответа</h4>\n          <p><span class=\"model-signature\" /></p>\n          <br/>\n          <div class=\"response-content-type\" />\n        ";
   }
 
 function program5(depth0,data) {
   
   
-  return "\n          <h4>Parameters</h4>\n          <table class='fullwidth'>\n          <thead>\n            <tr>\n            <th style=\"width: 100px; max-width: 100px\">Parameter</th>\n            <th style=\"width: 310px; max-width: 310px\">Value</th>\n            <th style=\"width: 200px; max-width: 200px\">Description</th>\n            <th style=\"width: 100px; max-width: 100px\">Parameter Type</th>\n            <th style=\"width: 220px; max-width: 230px\">Data Type</th>\n            </tr>\n          </thead>\n          <tbody class=\"operation-params\">\n\n          </tbody>\n          </table>\n          ";
+  return "\n          <h4>Параметры запроса</h4>\n          <table class='fullwidth'>\n          <thead>\n            <tr>\n            <th style=\"width: 100px; max-width: 100px\">Параметр</th>\n            <th style=\"width: 310px; max-width: 310px\">Значение</th>\n            <th style=\"width: 200px; max-width: 200px\">Описание</th>\n            <th style=\"width: 100px; max-width: 100px\">Тип параметра</th>\n            <th style=\"width: 220px; max-width: 230px\">Тип данных</th>\n            </tr>\n          </thead>\n          <tbody class=\"operation-params\">\n\n          </tbody>\n          </table>\n          ";
   }
 
 function program7(depth0,data) {
   
   
-  return "\n          <div style='margin:0;padding:0;display:inline'></div>\n          <h4>Error Status Codes</h4>\n          <table class='fullwidth'>\n            <thead>\n            <tr>\n              <th>HTTP Status Code</th>\n              <th>Reason</th>\n            </tr>\n            </thead>\n            <tbody class=\"operation-status\">\n            \n            </tbody>\n          </table>\n          ";
+  return "\n          <div style='margin:0;padding:0;display:inline'></div>\n          <h4>Коды ошибок</h4>\n          <table class='fullwidth'>\n            <thead>\n            <tr>\n              <th>HTTP-код</th>\n              <th>Описание</th>\n            </tr>\n            </thead>\n            <tbody class=\"operation-status\">\n            \n            </tbody>\n          </table>\n          ";
   }
 
 function program9(depth0,data) {
@@ -458,7 +458,7 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   
-  return "\n          <div class='sandbox_header'>\n            <input class='submit' name='commit' type='button' value='Try it out!' />\n            <a href='#' class='response_hider' style='display:none'>Hide Response</a>\n            <img alt='Throbber' class='response_throbber' src='images/throbber.gif' style='display:none' />\n          </div>\n          ";
+  return "\n          <div class='sandbox_header'>\n            <input class='submit' name='commit' type='button' value='Отправить!' />\n            <a href='#' class='response_hider' style='display:none'>Скрыть ответ</a>\n            <img alt='Throbber' class='response_throbber' src='images/throbber.gif' style='display:none' />\n          </div>\n          ";
   }
 
   buffer += "\n  <ul class='operations' >\n    <li class='";
@@ -572,7 +572,7 @@ function program11(depth0,data) {
   buffer += "\n          ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.isReadOnly), {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>Request URL</h4>\n          <div class='block request_url'></div>\n          <h4>Response Body</h4>\n          <div class='response_body'></div>\n          <h4>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
+  buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>URL запроса</h4>\n          <div class='block request_url'></div>\n          <h4>Ответ</h4>\n          <div class='response_body'></div>\n          <h4>Код ответа</h4>\n          <div class='block response_code'></div>\n          <h4>Заголовки ответа</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
   return buffer;
   });
 })();
@@ -1180,19 +1180,19 @@ function program1(depth0,data) {
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "');\">Show/Hide</a>\n    </li>\n    <li>\n      <a href='#' onclick=\"Docs.collapseOperationsForResource('";
+    + "');\">Показать/Скрыть</a>\n    </li>\n    <li>\n      <a href='#' onclick=\"Docs.collapseOperationsForResource('";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'); return false;\">\n        List Operations\n      </a>\n    </li>\n    <li>\n      <a href='#' onclick=\"Docs.expandOperationsForResource('";
+    + "'); return false;\">\n        Списком\n      </a>\n    </li>\n    <li>\n      <a href='#' onclick=\"Docs.expandOperationsForResource('";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'); return false;\">\n        Expand Operations\n      </a>\n    </li>\n    <li>\n      <a href='";
+    + "'); return false;\">\n        Подробно\n      </a>\n    </li>\n<!--    <li>\n      <a href='";
   if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.url); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "'>Raw</a>\n    </li>\n  </ul>\n</div>\n<ul class='endpoints' id='";
+    + "'>Raw</a>\n    </li> -->\n  </ul>\n</div>\n<ul class='endpoints' id='";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
@@ -1252,7 +1252,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n<ul class=\"signature-nav\">\n    <li><a class=\"description-link\" href=\"#\">hide</a></li>\n    <li><a class=\"snippet-link\" href=\"#\">show</a></li>\n</ul>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"snippet\" style=\"display: none\">\n        <div class=\"json\">";
+  buffer += "<div>\n    <a class=\"hide-link\" href=\"#\">скрыть</a>\n    <a class=\"show-link\" href=\"#\">показать</a>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"snippet\" style=\"display: none\">\n        <div class=\"json\">";
   if (stack1 = helpers.sampleJSON) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.sampleJSON); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
@@ -2006,8 +2006,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     }
 
     SignatureView.prototype.events = {
-      'click a.description-link': 'switchToDescription',
-      'click a.snippet-link': 'switchToSnippet',
+      'click a.hide-link': 'hideFormat',
+      'click a.show-link': 'showFormat',
       'mousedown .snippet': 'snippetToTextArea'
     };
 
@@ -2017,6 +2017,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       var template;
       template = this.template();
       $(this.el).html(template(this.model));
+      $('a.show-link').show();
+      this.hideFormat();
       this.isParam = this.model.isParam;
       if (this.isParam) {
         $('.notice', $(this.el)).text('Click to set as parameter value');
@@ -2028,24 +2030,24 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       return Handlebars.templates.signature;
     };
 
-    SignatureView.prototype.switchToDescription = function(e) {
+    SignatureView.prototype.hideFormat = function(e) {
       if (e != null) {
         e.preventDefault();
       }
       $(".snippet", $(this.el)).hide();
       $(".description", $(this.el)).show();
-      $('.description-link', $(this.el)).addClass('selected');
-      return $('.snippet-link', $(this.el)).removeClass('selected');
+      $('a.show-link').show();
+      return $('a.hide-link').hide();
     };
 
-    SignatureView.prototype.switchToSnippet = function(e) {
+    SignatureView.prototype.showFormat = function(e) {
       if (e != null) {
         e.preventDefault();
       }
       $(".description", $(this.el)).hide();
       $(".snippet", $(this.el)).show();
-      $('.snippet-link', $(this.el)).addClass('selected');
-      $('.description-link', $(this.el)).removeClass('selected');
+      $('a.show-link').hide();
+      $('a.hide-link').show();
       return window.refreshCodeMirror($(this.el).find('.json'));
     };
 
@@ -2103,10 +2105,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     ResponseContentTypeView.prototype.initialize = function() {};
 
     ResponseContentTypeView.prototype.render = function() {
-      var template;
-      template = this.template();
-      $(this.el).html(template(this.model));
-      $('label[for=responseContentType]', $(this.el)).text('Response Content Type');
       return this;
     };
 

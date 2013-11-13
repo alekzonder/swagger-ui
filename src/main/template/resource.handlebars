@@ -5,21 +5,21 @@
   <ul class='options'>
     <li>
       <a href='#!/{{name}}' id='endpointListTogger_{{name}}'
-         onclick="Docs.toggleEndpointListForResource('{{name}}');">Show/Hide</a>
+         onclick="Docs.toggleEndpointListForResource('{{name}}');">Показать/Скрыть</a>
     </li>
     <li>
       <a href='#' onclick="Docs.collapseOperationsForResource('{{name}}'); return false;">
-        List Operations
+        Списком
       </a>
     </li>
     <li>
       <a href='#' onclick="Docs.expandOperationsForResource('{{name}}'); return false;">
-        Expand Operations
+        Подробно
       </a>
     </li>
-    <li>
+<!--    <li>
       <a href='{{url}}'>Raw</a>
-    </li>
+    </li> -->
   </ul>
 </div>
 <ul class='endpoints' id='{{name}}_endpoint_list' style='display:none'>

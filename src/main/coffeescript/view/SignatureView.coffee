@@ -1,7 +1,7 @@
 class SignatureView extends Backbone.View
   events: {
-  'click a.description-link'       : 'switchToDescription'
-  'click a.snippet-link'           : 'switchToSnippet'
+  'click a.hide-link'       : 'hideFormat'
+  'click a.show-link'           : 'showFormat'
   'mousedown .snippet'          : 'snippetToTextArea'
   }
 
@@ -11,7 +11,8 @@ class SignatureView extends Backbone.View
     template = @template()
     $(@el).html(template(@model))
 
-#    @switchToSnippet()
+    $('a.show-link').show()
+    @hideFormat()
 
     @isParam = @model.isParam
 
@@ -24,20 +25,24 @@ class SignatureView extends Backbone.View
       Handlebars.templates.signature
 
   # handler for show signature
-  switchToDescription: (e) ->
+  hideFormat: (e) ->
     e?.preventDefault()
     $(".snippet", $(@el)).hide()
     $(".description", $(@el)).show()
-    $('.description-link', $(@el)).addClass('selected')
-    $('.snippet-link', $(@el)).removeClass('selected')
+#    $('.description-link', $(@el)).addClass('selected')
+#    $('.show-link', $(@el)).removeClass('selected')
+    $('a.show-link').show()
+    $('a.hide-link').hide()
     
   # handler for show sample
-  switchToSnippet: (e) ->
+  showFormat: (e) ->
     e?.preventDefault()
     $(".description", $(@el)).hide()
     $(".snippet", $(@el)).show()
-    $('.snippet-link', $(@el)).addClass('selected')
-    $('.description-link', $(@el)).removeClass('selected')
+#    $('.snippet-link', $(@el)).addClass('selected')
+#    $('.description-link', $(@el)).removeClass('selected')
+    $('a.show-link').hide()
+    $('a.hide-link').show()
     window.refreshCodeMirror($(@el).find('.json'))
 
   # handler for snippet to text area
