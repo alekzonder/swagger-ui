@@ -1252,7 +1252,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n    <a class=\"hide-link\" href=\"#\">скрыть</a>\n    <a class=\"show-link\" href=\"#\">показать</a>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"snippet\" style=\"display: none\">\n        <div class=\"json\">";
+  buffer += "<div>\n    <a class=\"hide-link\" href=\"#\" style=\"display: none\">скрыть</a>\n    <a class=\"show-link\" href=\"#\">показать</a>\n<div>\n\n<div class=\"signature-container\">\n    <div class=\"snippet\" style=\"display: none\">\n        <div class=\"json\">";
   if (stack1 = helpers.sampleJSON) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.sampleJSON); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)

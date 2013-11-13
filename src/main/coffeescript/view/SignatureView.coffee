@@ -7,6 +7,8 @@ class SignatureView extends Backbone.View
 
   initialize: ->
 
+
+
   render: ->
     template = @template()
     $(@el).html(template(@model))
