@@ -13,8 +13,8 @@ class SignatureView extends Backbone.View
     template = @template()
     $(@el).html(template(@model))
 
-    $('a.hide-link').hide()
-    $('a.show-link').show()
+    $('a.hide-link', $(@el)).hide()
+    $('a.show-link', $(@el)).show()
     @hideFormat()
 
     @isParam = @model.isParam
@@ -34,8 +34,8 @@ class SignatureView extends Backbone.View
     $(".description", $(@el)).show()
 #    $('.description-link', $(@el)).addClass('selected')
 #    $('.show-link', $(@el)).removeClass('selected')
-    $('a.show-link').show()
-    $('a.hide-link').hide()
+    $('a.show-link', $(@el)).show()
+    $('a.hide-link', $(@el)).hide()
     
   # handler for show sample
   showFormat: (e) ->
@@ -44,8 +44,8 @@ class SignatureView extends Backbone.View
     $(".snippet", $(@el)).show()
 #    $('.snippet-link', $(@el)).addClass('selected')
 #    $('.description-link', $(@el)).removeClass('selected')
-    $('a.show-link').hide()
-    $('a.hide-link').show()
+    $('a.show-link', $(@el)).hide()
+    $('a.hide-link', $(@el)).show()
     window.refreshCodeMirror($(@el).find('.json'))
 
   # handler for snippet to text area

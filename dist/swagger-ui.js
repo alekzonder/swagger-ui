@@ -2017,8 +2017,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       var template;
       template = this.template();
       $(this.el).html(template(this.model));
-      $('a.hide-link').hide();
-      $('a.show-link').show();
+      $('a.hide-link', $(this.el)).hide();
+      $('a.show-link', $(this.el)).show();
       this.hideFormat();
       this.isParam = this.model.isParam;
       if (this.isParam) {
@@ -2037,8 +2037,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       }
       $(".snippet", $(this.el)).hide();
       $(".description", $(this.el)).show();
-      $('a.show-link').show();
-      return $('a.hide-link').hide();
+      $('a.show-link', $(this.el)).show();
+      return $('a.hide-link', $(this.el)).hide();
     };
 
     SignatureView.prototype.showFormat = function(e) {
@@ -2047,8 +2047,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       }
       $(".description", $(this.el)).hide();
       $(".snippet", $(this.el)).show();
-      $('a.show-link').hide();
-      $('a.hide-link').show();
+      $('a.show-link', $(this.el)).hide();
+      $('a.hide-link', $(this.el)).show();
       return window.refreshCodeMirror($(this.el).find('.json'));
     };
 
