@@ -477,7 +477,7 @@ function program11(depth0,data) {
   buffer += "\n          ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.isReadOnly), {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>Request URL</h4>\n          <div class='block request_url'></div>\n          <h4>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
+  buffer += "\n        </form>\n        <div class='response' style='display:none'>\n          <h4>Request URL</h4>\n          <div class='block request_url'></div>\n          <h4>Response Body</h4>\n          <div class='response_body'></div>\n          <h4>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
   return buffer;
   });
 })();
@@ -1735,7 +1735,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     };
 
     OperationView.prototype.showStatus = function(data) {
-      var code, content, contentType, headers, pre, response_body;
+      var code, content, contentType, headers, pre, responseBodyElement, response_body;
       content = data.content.data;
       headers = data.getHeaders();
       contentType = headers["Content-Type"];
@@ -1743,7 +1743,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         code = $('<code />').text("no content");
         pre = $('<pre class="json" />').append(code);
       } else if (contentType.indexOf("application/json") === 0 || contentType.indexOf("application/hal+json") === 0) {
-        code = $('<code />').text(JSON.stringify(JSON.parse(content), null, 2));
+        code = $('<code />').text(content);
         pre = $('<pre class="json" />').append(code);
       } else if (contentType.indexOf("application/xml") === 0) {
         code = $('<code />').text(this.formatXml(content));
@@ -1757,15 +1757,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         code = $('<code />').text(content);
         pre = $('<pre class="json" />').append(code);
       }
-      response_body = pre;
+      response_body = content;
       $(".request_url", $(this.el)).html("<pre>" + data.request.url + "</pre>");
       $(".response_code", $(this.el)).html("<pre>" + data.status + "</pre>");
-      $(".response_body", $(this.el)).html(response_body);
       $(".response_headers", $(this.el)).html("<pre>" + JSON.stringify(data.getHeaders()) + "</pre>");
       $(".response", $(this.el)).slideDown();
       $(".response_hider", $(this.el)).show();
       $(".response_throbber", $(this.el)).hide();
-      return hljs.highlightBlock($('.response_body', $(this.el))[0]);
+      responseBodyElement = $('.response_body', $(this.el))[0];
+      if (window.hasCodeMirror(responseBodyElement)) {
+        return window.setCodeMirrorContent(responseBodyElement, content);
+      } else {
+        $(".response_body", $(this.el)).html(response_body);
+        return window.createCodeMirror(responseBodyElement);
+      }
     };
 
     OperationView.prototype.toggleOperationContent = function() {

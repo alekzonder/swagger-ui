@@ -5,7 +5,7 @@
   <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'/>
   <link href='css/highlight.default.css' media='screen' rel='stylesheet' type='text/css'/>
   <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-  <script type="text/javascript" src="lib/shred.bundle.js" /></script>  
+  <script type="text/javascript" src="lib/shred.bundle.js" /></script>
   <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
   <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
   <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
@@ -56,16 +56,28 @@
       window.createCodeMirror = function(e) {
 
           if ($(e).data('CodeMirrorInstance')) {
+
               var editor = $(e).data('CodeMirrorInstance');
+
+              if (!$(e).find('.CodeMirror')) {
+                  editor.setValue(e);
+              }
+
               editor.refresh();
               return false;
           }
 
           var $this = $(e),
                   $code = $(e).html(),
-                  $unescaped = $('<div/>').html($code).text();
+                  $unescaped = $('<div/>').html($code).text(),
+                  json;
 
-          var json = JSON.parse($unescaped);
+
+          if ($unescaped) {
+            json = JSON.parse($unescaped);
+          } else {
+              json = '';
+          }
 
           $unescaped = JSON.stringify(json, null, "\t");
 
@@ -100,13 +112,43 @@
           $(e).data('CodeMirrorInstance', editor);
       };
 
-     window.refreshCodeMirror = function(e) {
+
+      window.refreshCodeMirror = function(e) {
          var editor = $(e).data('CodeMirrorInstance');
 
          if (editor) {
              editor.refresh();
          }
-     };
+      };
+
+      window.hasCodeMirror = function(element) {
+          if ($(element).data('CodeMirrorInstance')) {
+              return true;
+          } else {
+              return false;
+          }
+      };
+
+
+      window.setCodeMirrorContent = function(element, content) {
+
+          if (window.hasCodeMirror(element)) {
+              var
+                 editor = $(element).data('CodeMirrorInstance'),
+                 json;
+
+              if (content) {
+                  json = JSON.parse(content);
+              } else {
+                  json = '';
+              }
+
+              content = JSON.stringify(json, null, "\t");
+
+              editor.setValue(content);
+          }
+
+      };
 
       window.swaggerUi = new SwaggerUi({
       url: "http://petstore.swagger.wordnik.com/api/api-docs",

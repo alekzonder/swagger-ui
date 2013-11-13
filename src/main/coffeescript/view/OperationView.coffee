@@ -206,7 +206,7 @@ class OperationView extends Backbone.View
       code = $('<code />').text("no content")
       pre = $('<pre class="json" />').append(code)
     else if contentType.indexOf("application/json") == 0 || contentType.indexOf("application/hal+json") == 0
-      code = $('<code />').text(JSON.stringify(JSON.parse(content), null, 2))
+      code = $('<code />').text(content)
       pre = $('<pre class="json" />').append(code)
     else if contentType.indexOf("application/xml") == 0
       code = $('<code />').text(@formatXml(content))
@@ -221,16 +221,28 @@ class OperationView extends Backbone.View
       code = $('<code />').text(content)
       pre = $('<pre class="json" />').append(code)
 
-    response_body = pre
+    response_body = content
     $(".request_url", $(@el)).html "<pre>" + data.request.url + "</pre>"
     $(".response_code", $(@el)).html "<pre>" + data.status + "</pre>"
-    $(".response_body", $(@el)).html response_body
+
     $(".response_headers", $(@el)).html "<pre>" + JSON.stringify(data.getHeaders()) + "</pre>"
     $(".response", $(@el)).slideDown()
     $(".response_hider", $(@el)).show()
     $(".response_throbber", $(@el)).hide()
 
-    hljs.highlightBlock($('.response_body', $(@el))[0])
+    responseBodyElement = $('.response_body', $(@el))[0]
+
+    if (window.hasCodeMirror(responseBodyElement))
+      window.setCodeMirrorContent(responseBodyElement, content)
+    else
+      $(".response_body", $(@el)).html response_body
+      window.createCodeMirror(responseBodyElement)
+
+
+
+#    hljs.highlightBlock($('.response_body', $(@el))[0])
+
+
 
   toggleOperationContent: ->
     elem = $('#' + Docs.escapeResourceName(@model.resourceName) + "_" + @model.nickname + "_" + @model.method + "_" + @model.number + "_content")
